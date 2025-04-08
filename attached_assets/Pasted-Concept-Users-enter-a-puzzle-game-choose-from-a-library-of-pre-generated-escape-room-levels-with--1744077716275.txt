@@ -1,0 +1,185 @@
+Concept:
+Users enter a puzzle game, choose from a library of pre-generated escape room levels (with varying difficulty), and compete by solving each level as quickly as possible. Points and achievements are awarded based on how closely the user’s solution time approaches the AI’s solution time, with additional rewards for other performance metrics. A global leaderboard tracks and displays top performers.
+
+🧩 Core Features & Modules
+1. Level Selection & Game Entry
+Pre-generated Levels:
+
+A curated set of escape room mazes with unique IDs, varying difficulty, and theme tags.
+
+Levels stored in a database (e.g., Firebase or Supabase) as JSON objects representing the grid, obstacles, and start/end points.
+
+Level Browser UI:
+
+A gallery or list view where users preview levels (thumbnail, difficulty rating, past high scores).
+
+Filtering and sorting options (e.g., by difficulty, new levels, player ratings).
+
+User Session Setup:
+
+Option for anonymous play or a simple registration system.
+
+Brief instructions on scoring, achievements, and game rules.
+
+2. Gameplay & Human vs. AI Challenge
+Game Play Interface:
+
+Full-screen, responsive grid with fog-of-war disabled (or minimal) for clarity.
+
+Visible UI controls for movement (keyboard for desktop, touch for mobile).
+
+On-screen timer starts as soon as the level is loaded.
+
+Integrated AI Benchmark:
+
+For each level, the AI solver pre-computes its optimal solution time (hidden to the user until after completing the puzzle).
+
+The AI solution is stored with level metadata to allow direct comparison.
+
+Scoring Mechanism:
+
+Points are calculated based on the user's completion time relative to the AI's time. For example:
+
+If the user’s time is within 110% of the AI’s time → high score.
+
+Greater differences yield lower scores.
+
+Bonuses for minimal steps or avoiding backtracking.
+
+Achievement System:
+
+Levels completed under certain thresholds unlock badges (e.g., “Speed Demon”, “Efficient Navigator”).
+
+Achievements are stored in user profiles.
+
+Result Screen:
+
+Displays user’s time, number of steps, efficiency relative to AI (e.g., “You were only 15 seconds slower than the AI!”).
+
+Shows earned points and unlocked achievements.
+
+3. Global Leaderboards & Community Integration
+Leaderboard Implementation:
+
+Maintain a per-level leaderboard and an overall global leaderboard.
+
+Leaderboards include metrics such as best time, highest score, and a “closeness to AI” metric.
+
+Data storage using a real-time database (Firebase Realtime Database or Firestore) so leaderboards update live.
+
+Social & Sharing Features:
+
+Users can share their achievements and challenge links on social media.
+
+Option to invite friends to compete or compare scores.
+
+User Profile Dashboard:
+
+A profile page that tracks scores, unlocked achievements, and overall ranking.
+
+Option for users to display personal statistics (e.g., best level times, improvement over time).
+
+🛠️ Technical Architecture
+Front End:
+Framework: React.js for component-based UI.
+
+Styling: Tailwind CSS (or equivalent) for modern, responsive design.
+
+Animations: Framer Motion or GSAP for smooth transitions (e.g., level selection animations, timer effects, achievement pop-ups).
+
+Routing: React Router for multi-page navigation (e.g., Level Gallery, Gameplay, Leaderboard, Profile).
+
+Back End & Data Storage:
+Database: Firebase or Supabase for managing level data, user scores, and achievement records.
+
+API: REST/GraphQL endpoints to fetch levels, submit game results, and retrieve leaderboard data.
+
+Real-Time Updates: Utilize Firebase Realtime Database/Firestore for live leaderboard feeds.
+
+Algorithm Integration:
+AI Solver Module:
+
+Pre-compute solution time for each level using your Adaptive Hierarchical Neural Pathfinding (AHNP) algorithm.
+
+Store AI performance metrics with each level record.
+
+Scoring & Achievement Engine:
+
+Calculate points based on a formula comparing user time vs AI time.
+
+Unlock achievements based on pre-defined criteria.
+
+Persist scores and achievements in the database.
+
+Authentication (Optional but Recommended):
+User Accounts:
+
+Allow for email/Google-based authentication for saving scores and progress.
+
+Support anonymous play with temporary local storage for casual users.
+
+Profile Management:
+
+Simple UI for users to manage personal details, view achievements, and track leaderboard positions.
+
+📆 Development Roadmap & Milestones
+Phase 1: MVP (3–4 Weeks)
+Level Gallery & Selection: Build a static list of 5–10 pre-generated levels.
+
+Core Gameplay: Implement the grid, player movement, timer, and basic scoring.
+
+AI Benchmark: Integrate the AI auto-solver to pre-calculate optimal times; show result comparison on level completion.
+
+Basic Leaderboard: Simple implementation to store and display scores for each level.
+
+Phase 2: Feature Expansion (2–3 Weeks)
+Achievement System: Develop criteria and UI for unlocking and displaying achievements.
+
+User Profiles & Authentication: Implement basic user account creation and profile management.
+
+Enhanced Leaderboard: Separate per-level and overall leaderboards with sorting/filtering options.
+
+UI Polish & Animations: Integrate Framer Motion/GSAP animations for transitions, score pop-ups, and achievement notifications.
+
+Phase 3: Community & Scalability (2–3 Weeks)
+Public Maze Challenges: Allow users to submit custom levels that can be added to the gallery after moderation.
+
+Social Sharing Integration: Add buttons for sharing scores and challenge links on social media.
+
+Mobile Optimization: Refine layout, touch controls, and responsiveness for mobile devices.
+
+Analytics & Feedback: Add basic analytics to track user engagement and offer insights for future improvements.
+
+📈 User Flow Example
+Landing Page:
+
+User logs in (or plays anonymously) and is greeted with a stylish dashboard.
+
+They browse the Level Gallery, which features thumbnail previews, difficulty ratings, and high-score snippets.
+
+Level Selection:
+
+User selects a pre-generated level.
+
+A short intro shows the level's details (estimated AI time, difficulty, etc.) before starting.
+
+Gameplay:
+
+The grid loads in full-screen. The timer starts as soon as the user makes their first move.
+
+The user navigates the maze manually. The UI tracks steps and displays occasional hints based on AI-derived insights.
+
+Level Completion:
+
+Once solved, the app shows a results screen comparing the user's performance with the AI (e.g., user took 1 minute versus AI's 2 sec).
+
+Points are awarded based on proximity to the AI benchmark, and achievements are unlocked if thresholds are met.
+
+Leaderboard & Profile Update:
+
+The user’s score is posted on the global leaderboard for that level.
+
+Their personal profile is updated with newly earned achievements and new ranking positions.
+
+The user can opt to share their results or try another level.
+

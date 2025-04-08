@@ -1,0 +1,206 @@
+🎮 App Name: Escape Logic Lab
+Concept Overview
+Escape Logic Lab is a browser-based escape room game that challenges users to solve intricate mazes. Users can build their own rooms or generate random puzzles, experiment with different obstacles, and then watch a suite of AI pathfinding algorithms (for example, Basic A*, your Adaptive Hierarchical Neural Pathfinding, and a Random Walk variant) play out the optimal escape routes. Not only is the app a fun game, but it also educates users about the underlying AI logic through side-by-side visual comparisons and detailed metrics.
+
+🌐 Core Features & Modules
+1. Room Builder Module
+Purpose:
+Allow users to design custom escape rooms using an intuitive drag-and-drop grid interface.
+
+Key Features:
+
+Grid-based Canvas:
+Users interact with a 2D grid (e.g., 20×20, 50×50, scalable to larger sizes) where each cell (a “cube”) represents a potential path or obstacle.
+
+Tool Palette:
+Contains tools for placing:
+
+Start Point (🟩 Green)
+
+Exit (🟥 Red)
+
+Obstacles / Walls (⬛ Black)
+
+Interactive Objects (doors, keys, puzzles) with custom metadata
+
+Build & Edit Functions:
+Users can click or drag to add/remove elements. Changes are animated (using libraries like Framer Motion or GSAP for smooth transitions and visual feedback).
+
+Save & Share:
+Designs can be stored (via Firebase, Supabase, or another BaaS) for later editing or for sharing with the community.
+
+2. Random Maze Generator
+Purpose:
+For users who want a quick challenge, a random maze generator creates complex, unsolvable (or solvable) puzzles on-demand.
+
+Key Features:
+
+Customizable parameters (maze density, obstacle frequency, grid size).
+
+Animated maze generation that visually “grows” on the screen.
+
+Built-in variation modes (e.g., “Labyrinth,” “Puzzle Challenge”) that influence layout complexity.
+
+3. AI Pathfinding Simulator
+Purpose:
+Showcase and educate users about multiple AI pathfinding techniques by automatically “solving” the designed or generated maze.
+
+Key Features:
+
+Algorithm Comparison:
+Users can select from various algorithms:
+
+Basic A*
+
+Adaptive Hierarchical Neural Pathfinding (AHNP)
+
+Random Walk (for baseline comparison)
+
+Live Simulation:
+The app animates the chosen algorithm’s search process in real time:
+
+Cells change color to indicate exploration (e.g., visited nodes in fading gradients).
+
+The final path is highlighted (e.g., a bold blue trail with a glow effect).
+
+Dynamic Metrics Display:
+Alongside the simulation, a side-panel shows:
+
+Total computation time
+
+Number of cells evaluated
+
+Optimal path length versus solution length
+
+Real-time status updates (e.g., “Segmenting zones…” or “Refining path within zone 3…”)
+
+Educational Overlays:
+Optionally overlay explanations (tooltips or voice-over) to describe what the AI is doing at each phase of the search.
+
+4. Play Mode
+Purpose:
+Allow users to manually play and navigate their escape room, testing their design and comparing their performance to the AI solution.
+
+Key Features:
+
+Interactive Controls:
+Keyboard arrow keys or touch-based controls enable movement through the maze.
+
+Scoring System:
+Tracks moves, time taken, and compares the player’s route against the optimal AI-generated route.
+
+Hints & Replays:
+After playing, users can watch a replay of the AI’s solution to see where they could improve.
+
+Sound & Animation:
+Game-like sound effects (using Howler.js) and smooth animations make the experience immersive.
+
+5. Community & Analytics Module
+Purpose:
+Engage the community by allowing users to share puzzles, view analytics, and even rate and comment on each other’s designs.
+
+Key Features:
+
+Public Gallery:
+Browse a library of user-generated escape rooms.
+
+Leaderboards:
+Display fastest solutions, most creative designs, and best “beat the AI” scores.
+
+Feedback Mechanisms:
+Users can leave comments, rate puzzles, and even suggest modifications.
+
+Usage Analytics:
+For educators or designers, view metrics on how players interact with their maze (e.g., common choke points).
+
+🧩 Technical Framework & Architecture
+Front-End Framework: React.js
+UI Components:
+
+RoomBuilder:
+Handles grid rendering using HTML5 Canvas or CSS Grid. Integrates drag-and-drop functionality (via libraries like React DnD).
+
+MazeGenerator:
+A component that calculates and visualizes random maze generation, with animations.
+
+AISimulator:
+Displays the search algorithm process using animated overlays and metrics.
+
+GamePlay:
+A full-screen interactive mode for manual play.
+
+Dashboard & Gallery:
+For community features and analytics.
+
+Animation & Visual Effects:
+Framer Motion / GSAP:
+To implement smooth transitions, animated path reveals, and hover effects.
+
+SVG & Canvas:
+Where detailed, high-performance rendering is required (e.g., real-time maze updates).
+
+Back-End & Database:
+Firebase or Supabase:
+For user authentication, saving room designs, and storing community data.
+
+APIs:
+REST or GraphQL endpoints to manage map data and analytics.
+
+Algorithm Implementation:
+Core AI Module (AHNP):
+
+Written in JavaScript (or optionally TypeScript) in the /services directory.
+
+Includes:
+
+Dynamic Zone Partitioning:
+Dividing the grid based on obstacle density with clustering or region-growing methods.
+
+Coarse-Level Neural A Search:*
+Uses a lightweight neural network to predict cost-to-go between zones (integrated with a reinforcement learning loop for online adaptation).
+
+Fine-Level Local Search:
+Traditional A* or Dijkstra’s search within each zone.
+
+RL/Heuristic Adaptation:
+Periodically recalibrates heuristic weights based on performance metrics (path length, computation time).
+
+Modular Design:
+The algorithm is designed as a series of functions that can be called asynchronously, with clear inputs (grid, start, goal) and outputs (path, metrics).
+
+Development Roadmap:
+Prototype Phase:
+
+Implement basic grid UI, manual placement of obstacles, and a baseline A* solver.
+
+Integrate simple animations for cell state changes.
+
+Algorithm Enhancement:
+
+Develop dynamic zone partitioning.
+
+Integrate a neural network for cost estimation (using TensorFlow.js or a custom solution).
+
+Build the reinforcement learning loop for heuristic adaptation.
+
+User Interaction & Play Mode:
+
+Build the game-play mode with user-controlled navigation.
+
+Add scoring and replay functionality.
+
+Community & Sharing:
+
+Develop backend functionality for saving, retrieving, and sharing maze designs.
+
+Build a public gallery and analytics dashboard.
+
+Final Polishing:
+
+Refine UI/UX with advanced animations, responsive design, and high-quality icons and sound.
+
+Optimize performance for large grids and ensure accessibility across devices.
+
+🔮 Summary Elevator Pitch
+Escape Logic Lab is a cutting-edge web app that transforms escape room design into an interactive, educational playground. Users can create, modify, and challenge themselves with custom 2D mazes. At its core, the app runs a state-of-the-art Adaptive Hierarchical Neural Pathfinding (AHNP) algorithm, which dynamically partitions the maze, uses machine learning to accurately predict the optimal escape route, and continuously learns to improve its efficiency. With smooth, game-like animations, detailed performance metrics, and a vibrant community gallery, Escape Logic Lab redefines puzzle design while showcasing next-level AI technology in a fun and accessible way.
+

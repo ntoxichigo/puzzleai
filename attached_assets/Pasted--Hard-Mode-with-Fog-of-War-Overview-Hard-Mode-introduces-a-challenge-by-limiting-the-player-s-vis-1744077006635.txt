@@ -1,0 +1,126 @@
+🚩 Hard Mode with Fog-of-War: Overview
+Hard Mode introduces a challenge by limiting the player’s visibility within the maze—referred to as "fog-of-war." In this mode, while the AI solver still has full knowledge of the maze, human players face partial information and must rely on intuition and memory to navigate. At the same time, your Adaptive Hierarchical Neural Pathfinding (AHNP) algorithm can be expanded to account for uncertainty in such scenarios, driving its evolution toward experimental, real-time adaptive search under incomplete information.
+
+👁️ User Experience & Visual Design
+1. The Maze Environment in Hard Mode
+Fog-of-War Overlay:
+
+Initial Visibility: Only a circular area around the player's current position is revealed (e.g., a radius of 3-5 cells).
+
+Dynamic Revelation: As the player moves, the fog shifts, progressively unveiling nearby cells. Areas previously seen may remain dimly lit as a memory trace.
+
+Darkened Unexplored Areas: Cells outside the visible radius appear dark or heavily blurred to simulate uncertainty.
+
+Indicators:
+
+Edge of Visibility: A subtle gradient or vignette effect shows the boundary between illuminated and fogged areas.
+
+Mini-Map (Optional): A small, secondary map may gradually reveal more details as players progress, but initial information is minimal.
+
+2. UI & Feedback for the Player
+Control Panel Updates:
+
+A clear indication that the mode is “Hard Mode (Fog-of-War)” appears, perhaps with a distinct color scheme (e.g., cooler, darker tones with neon outlines).
+
+Status Messages:
+
+The AI status panel could provide hints, such as “Scanning visible area…” or “Partial knowledge: recalculating best guess route…”
+
+Animations:
+
+Smooth animations as the fog recedes and advances with each move.
+
+Subtle, experimental effects like dynamic "heat maps" showing areas of frequent player visits or probable safe zones.
+
+3. Competitive Element: Human vs. AI in Hard Mode
+Direct Comparison:
+
+After each round, display both the AI-computed optimal path (which it computes with full maze data) and the path chosen by the player under fog limitations.
+
+Show performance metrics: time, steps, and “efficiency under limited vision.”
+
+Leaderboards:
+
+Separate leaderboards for Hard Mode to track who can best navigate the maze under these more challenging conditions.
+
+🧠 Algorithm Improvement & Experimental Features
+To push your algorithm to an even higher, experimental level in Hard Mode, consider the following enhancements:
+
+1. Adaptive Partial-Information Heuristics
+Dynamic Heuristic Update:
+
+Modify the neural network (or heuristic function) so that, unlike the full-information AHNP, it is trained on partial-observation data.
+
+This system learns to estimate costs when certain areas are hidden by the fog-of-war. For instance, integrating a Bayesian inference module helps update the heuristic as new parts of the maze are revealed.
+
+Probabilistic Zone Estimation:
+
+Rather than treating each zone as a static value, assign a probability distribution to unknown zones. As players move, the algorithm uses data from revealed cells to adjust estimated costs, similar to how a Monte Carlo Tree Search (MCTS) might sample future states.
+
+2. Reinforcement Learning Under Uncertainty
+Reward Signals for Exploration:
+
+Introduce an RL component that rewards the AI for making optimal decisions under limited visibility.
+
+Over multiple runs, the model adapts to scenarios where the complete maze is not known at the outset and must update its understanding in real time.
+
+Online Learning:
+
+Allow the algorithm to update its parameters on-the-fly within a session, leading to better predictions as more of the maze is uncovered.
+
+Consider integrating Q-learning or policy gradients tailored to partial observability (e.g., Partially Observable Markov Decision Process (POMDP) approaches).
+
+3. Parallel Exploration with Lookahead
+Multi-Agent Simulation:
+
+Deploy multiple virtual agents in parallel that simulate various “guesses” about unrevealed areas. This allows the AI to explore multiple hypotheses about what might lie in the fog.
+
+Merge the results of parallel searches to improve the robustness of the computed path—essentially a consensus-based decision on which route appears safest.
+
+4. Experimental Visualization Overlays
+Heat Maps & Confidence Levels:
+
+Overlay the maze with visual cues that indicate the algorithm’s confidence in unexplored regions.
+
+The system might show “risk levels” or “predicted success” gradients based on cumulative learning.
+
+Real-Time Adaptation Feedback:
+
+As the AI adjusts to the fog-of-war, an experimental UI could display a live “learning curve” or a small graph tracking heuristic adjustments during that run.
+
+🔮 Experimental Feature Summary
+Adaptive Partial-Information Heuristics:
+Combine neural inference with Bayesian updates to predict costs in hidden zones.
+
+RL Under Uncertainty:
+Use reinforcement signals to train the AI in the context of partial knowledge, using methods inspired by POMDP frameworks.
+
+Parallel Virtual Agents:
+Explore multiple hypotheses concurrently and merge candidate solutions for improved decision-making.
+
+Visual Confidence Overlays:
+Provide users with real-time data on AI uncertainty and confidence, making the process educational and engaging.
+
+🧩 High-Level Flow in Hard Mode
+Initialization:
+
+The maze is loaded with fog-of-war, and the full grid is known only to the AI.
+
+Player Exploration:
+
+The player uncovers parts of the maze through their movements.
+
+The algorithm employs adaptive heuristics to compute potential paths with partial data.
+
+AI Simulation:
+
+The AI runs its enhanced AHNP variant on the known grid while incorporating uncertainty estimates.
+
+It continuously refines the path as more data becomes available.
+
+Outcome & Comparison:
+
+Both paths (human and AI) are displayed, along with metrics like time, steps, efficiency, and confidence in unexplored areas.
+
+Results are posted on a dedicated leaderboard for Hard Mode.
+
